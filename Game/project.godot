@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="game"
-config/icon="res://ico.png"
+config/icon="res://icon.png"
 
 [rendering]
 
