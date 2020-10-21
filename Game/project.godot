@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="game"
 config/icon="res://Assets/icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "codeandweb.texturepacker" )
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
