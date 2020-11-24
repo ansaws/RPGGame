@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    public Rigidbody2D playerBody;
     private Animator anim;
+    private string direction = "d"; //d = down, u = up, l = left, r = right
+
+    public Rigidbody2D playerBody;
     Vector2 movement;
     public int playerSpeed = 5;
-
+    public bool isControlled = true;
 
     void Start()
     {
-        //create rigidbody component and add it to player
-        playerBody = gameObject.AddComponent(typeof(Rigidbody2D)) as Rigidbody2D;
-        playerBody.gravityScale = 0; //remove gravity (lol)
+        //get rigidbody component
+        playerBody = gameObject.GetComponent<Rigidbody2D>();
 
         //get animator component
         anim = gameObject.GetComponent<Animator>();
@@ -22,7 +23,10 @@ public class player : MonoBehaviour
 
     void Update()
     {
-        move();
+        if (isControlled)
+        {
+            move();
+        }
     }
     void move()
     {
@@ -35,22 +39,41 @@ public class player : MonoBehaviour
         if (movement.x > 0)
         {
             anim.Play("Walk_right");
+            direction = "r";
         }
         else if (movement.x< 0)
         {
             anim.Play("Walk_left");
+            direction = "l";
         }
         else if (movement.y > 0)
         {
             anim.Play("Walk_up");
+            direction = "u";
         }
         else if (movement.y < 0)
         {
             anim.Play("Walk_down");
+            direction = "d";
         }
         else
         {
-            anim.Rebind();
+            if (direction == "r")
+            {
+                anim.Play("Idle_right");
+            }
+            else if (direction == "l")
+            {
+                anim.Play("Idle_left");
+            }
+            else if (direction == "u")
+            {
+                anim.Play("Idle_up");
+            }
+            else if (direction == "d")
+            {
+                anim.Play("Idle_down");
+            }
         }
     }
 }
