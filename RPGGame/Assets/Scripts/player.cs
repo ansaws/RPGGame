@@ -8,12 +8,12 @@ public class player : MonoBehaviour
     private Animator anim;
     Vector2 movement;
     public int playerSpeed = 5;
-
+    public bool onBoat = false;
 
     void Start()
     {
         //create rigidbody component and add it to player
-        playerBody = gameObject.AddComponent(typeof(Rigidbody2D)) as Rigidbody2D;
+        playerBody = gameObject.GetComponent<Rigidbody2D>();
         playerBody.gravityScale = 0; //remove gravity (lol)
 
         //get animator component
@@ -51,6 +51,13 @@ public class player : MonoBehaviour
         else
         {
             anim.Rebind();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Boat")
+        { 
+            gameObject.transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y + 1);
         }
     }
 }
