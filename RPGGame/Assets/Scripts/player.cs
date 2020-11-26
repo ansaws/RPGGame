@@ -10,12 +10,22 @@ public class player : MonoBehaviour
     public Rigidbody2D playerBody;
     Vector2 movement;
     public int playerSpeed = 5;
+
     public bool isControlled = true;
 
     void Start()
     {
         //get rigidbody component
         playerBody = gameObject.GetComponent<Rigidbody2D>();
+
+    public bool onBoat = false;
+
+    void Start()
+    {
+        //create rigidbody component and add it to player
+        playerBody = gameObject.GetComponent<Rigidbody2D>();
+        playerBody.gravityScale = 0; //remove gravity (lol)
+
 
         //get animator component
         anim = gameObject.GetComponent<Animator>();
@@ -74,6 +84,13 @@ public class player : MonoBehaviour
             {
                 anim.Play("Idle_down");
             }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Boat")
+        { 
+            gameObject.transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y + 1);
         }
     }
 }
