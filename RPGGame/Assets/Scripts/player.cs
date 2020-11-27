@@ -28,10 +28,6 @@ public class player : MonoBehaviour
         {
             move();
         }
-        if (onBoat)
-        {
-            moveBoat();
-        }
     }
     void move()
     {
@@ -84,15 +80,17 @@ public class player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //When collide with boat
         if(collision.gameObject.tag == "Boat")
         {
-            isControlled = false;
-            onBoat = true;
-            collision.gameObject.GetComponent<Boat>().isControlled = true;
+            //isControlled = false;//stop controlling the player
+            movetoBoat(collision.gameObject);
+            onBoat = true;//is on the boat
+            collision.gameObject.GetComponent<Boat>().isControlled = true;//give control to the boat
         }
     }
-    void moveBoat()
+    void movetoBoat(GameObject g)
     {
-
+        gameObject.transform.position = new Vector3(g.transform.position.x, g.transform.position.y +1);
     }
 }
