@@ -93,7 +93,6 @@ public class Player : MonoBehaviour
             collision.gameObject.GetComponent<Boat>().player = this;
         }
     }
-    //move player on top of boat this is temp remove once we have actuall boat spites
     void movetoBoat(GameObject g)
     {
         gameObject.transform.position = new Vector3(g.transform.position.x, g.transform.position.y +1);
