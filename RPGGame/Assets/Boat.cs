@@ -8,7 +8,6 @@ public class Boat : MonoBehaviour
     public bool isControlled = false;
     private Vector2 movement;
     public int boatSpeed = 5;
-    public Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,16 +30,5 @@ public class Boat : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         body.MovePosition(body.position + movement * boatSpeed * Time.fixedDeltaTime);//Move the player
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Dock")
-        {
-            isControlled = false;
-            player.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y + 1);
-            body.velocity = new Vector3(0, 0);
-            player = null;
-        }
     }
 }
