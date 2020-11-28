@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public Rigidbody2D playerBody;
     private Animator anim;
@@ -14,12 +14,15 @@ public class player : MonoBehaviour
 
     void Start()
     {
-        //create rigidbody component and add it to player
+        //link player rigidbody component to this script
         playerBody = gameObject.GetComponent<Rigidbody2D>();
         playerBody.gravityScale = 0; //remove gravity (lol)
 
         //get animator component
         anim = gameObject.GetComponent<Animator>();
+
+        //attach self to camera
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().player = this;
     }
 
     void Update()
@@ -87,6 +90,7 @@ public class player : MonoBehaviour
             movetoBoat(collision.gameObject);
             onBoat = true;//is on the boat
             collision.gameObject.GetComponent<Boat>().isControlled = true;//give control to the boat
+            collision.gameObject.GetComponent<Boat>().player = this;
         }
     }
     void movetoBoat(GameObject g)
